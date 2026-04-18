@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Kevin Knoll</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode">
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </header>
+
+  <main class="blog-main">
+
+    <section class="section">
+      <a href="index.html" class="back-link">← Back</a>
+      <h1 class="page-title">Blog</h1>
+      <p class="bio" style="text-align:left; margin: 0 0 2.5rem;">
+        Thoughts on software, design, and the occasional rabbit hole.
+      </p>
+
+      <div class="blog-grid">
+
+        <a class="blog-card" href="#">
+          <div class="blog-thumb" style="background: #3b3166;"></div>
+          <div class="blog-meta">
+            <span class="blog-date">April 12, 2026</span>
+            <h2>Why I Switched from Webpack to Vite</h2>
+            <p>After years of config wrestling, I finally made the jump. Here's what surprised me most.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="#">
+          <div class="blog-thumb" style="background: #1a3a2a;"></div>
+          <div class="blog-meta">
+            <span class="blog-date">March 28, 2026</span>
+            <h2>The Case for Boring Technology</h2>
+            <p>Chasing the new shiny is fun. But the most productive teams I've been on run on boring stacks.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="#">
+          <div class="blog-thumb" style="background: #2a1a1a;"></div>
+          <div class="blog-meta">
+            <span class="blog-date">March 5, 2026</span>
+            <h2>Building a CLI Tool People Actually Use</h2>
+            <p>UX isn't just for GUIs. Good CLI design is a craft — and most tools get it wrong.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="#">
+          <div class="blog-thumb" style="background: #1a2a3a;"></div>
+          <div class="blog-meta">
+            <span class="blog-date">February 14, 2026</span>
+            <h2>Notes on Writing Better Commit Messages</h2>
+            <p>A commit message is a letter to your future self. Treat it like one.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="#">
+          <div class="blog-thumb" style="background: #2a2a1a;"></div>
+          <div class="blog-meta">
+            <span class="blog-date">January 30, 2026</span>
+            <h2>What I Learned Shipping a Side Project in 48 Hours</h2>
+            <p>Constraints are a feature. Here's what a weekend sprint taught me about focus.</p>
+          </div>
+        </a>
+
+        <a class="blog-card" href="#">
+          <div class="blog-thumb" style="background: #1a2a2a;"></div>
+          <div class="blog-meta">
+            <span class="blog-date">January 10, 2026</span>
+            <h2>The Unreasonable Effectiveness of Plain Text</h2>
+            <p>Markdown, TSV, logs — plain text files have outlived a dozen "better" alternatives.</p>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Kevin Knoll</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
