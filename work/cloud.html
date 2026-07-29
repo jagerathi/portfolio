@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloud Infrastructure — Kevin Knoll</title>
+  <meta name="description" content="Cloud migration and utilization.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/work/cloud.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Cloud Infrastructure — Kevin Knoll">
+  <meta property="og:description" content="Cloud migration and utilization.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/work/cloud.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/cloud-01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/projects/cloud</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work" class="active">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html#work" class="back">projects</a>
+      <div class="section-label">% <span class="cmd">cat projects/cloud.md</span></div>
+      <h1>Cloud Infrastructure</h1>
+      <p class="subtitle">Cloud migration and utilization.</p>
+
+      <div class="imgrow">
+        <img src="/assets/img/cloud-01.jpg" alt="Cloud Infrastructure screenshot 1">
+        <img src="/assets/img/cloud-02.jpg" alt="Cloud Infrastructure screenshot 2">
+      </div>
+
+      <div class="prose">
+        <p>After many years campaigning for a move to the cloud, I was finally given the go-ahead. As our infrastructure kept growing, it was impossible to keep up with changing technology needs using the small team we had to support it — it simply required too many subject-matter experts. The cloud changed that: we turned management over to the experts and focused on deploying our system in a secure, reliable, and scalable way.</p>
+        <p>I thought getting the move approved would be the biggest hurdle, but that was only the beginning. First we had to choose a provider. We spent weeks poring over the major players until we settled on a vendor that gave us the tools we needed and hit the budget I'd proposed. Then we focused on specific solutions within that provider. Database hosting was the primary concern — many options, but all had to fit the budget. We knew it would be our largest monthly cloud expense and the most critical: a reliable solution that met our performance criteria and handled our large data set.</p>
+        <p>Once the infrastructure was settled, we focused on getting our CI/CD pipeline running. We opted to support more environments in the cloud, so a major overhaul of our configuration system was needed. We also addressed a variety of program-level nuances that had to be adjusted to work better in the cloud.</p>
+        <p>Overall the process took about 10 months. I learned a great deal about how the cloud works and how to make it work for you. Deploying an entire production environment in hours from scratch was powerful. With access to nearly unlimited resources — bandwidth, storage, processing — we did things with our system we'd previously only dreamed of. We improved reliability while drastically improving performance, using the cloud to take advantage of changes in technology and best practices.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">← back to projects</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

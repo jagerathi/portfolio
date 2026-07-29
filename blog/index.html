@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — Kevin Knoll</title>
+  <meta name="description" content="Writing on architecture, AWS, and modernization by Kevin Knoll.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Blog — Kevin Knoll">
+  <meta property="og:description" content="Writing on architecture, AWS, and modernization by Kevin Knoll.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/blog/">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Blog — Kevin Knoll">
+  <meta name="twitter:description" content="Writing on architecture, AWS, and modernization by Kevin Knoll.">
+  <meta name="twitter:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/blog</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html" class="active">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html" class="back">home</a>
+      <div class="section-label">% <span class="cmd">ls -lt ./posts</span></div>
+      <h1>Writing</h1>
+      <p class="subtitle">Notes on architecture, AWS, and the long road of modernization.</p>
+      <div class="postlist" style="margin-top:18px">
+        <a href="/blog/iac-teardown.html" class="post">
+          <span class="post-date">Jun 10, 2026</span>
+          <span>
+            <span class="post-title">Tearing down production in 12 hours: our IaC journey</span><br>
+            <span class="post-excerpt">How infrastructure-as-code turned a fragile data center into something we could rebuild from scratch in an afternoon.</span>
+          </span>
+        </a>
+        <a href="/blog/monolith-to-saas.html" class="post">
+          <span class="post-date">May 18, 2026</span>
+          <span>
+            <span class="post-title">Monolith to SOA to SaaS: what I'd do differently</span><br>
+            <span class="post-excerpt">A decade modernizing a custom ERP, and the handful of lessons I'd hand to my past self.</span>
+          </span>
+        </a>
+        <a href="/blog/aws-database-budget.html" class="post">
+          <span class="post-date">Apr 22, 2026</span>
+          <span>
+            <span class="post-title">Choosing an AWS database without blowing the budget</span><br>
+            <span class="post-excerpt">Database hosting was our biggest cloud expense and our most critical component. Here's how we approached the trade-off.</span>
+          </span>
+        </a>
+      </div>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>&copy; <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

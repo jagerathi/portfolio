@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retail Management (RMS) — Kevin Knoll</title>
+  <meta name="description" content="Retail management system with direct integration into several popular accounting systems.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/work/rms.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Retail Management (RMS) — Kevin Knoll">
+  <meta property="og:description" content="Retail management system with direct integration into several popular accounting systems.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/work/rms.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/rms-01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/projects/rms</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work" class="active">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html#work" class="back">projects</a>
+      <div class="section-label">% <span class="cmd">cat projects/rms.md</span></div>
+      <h1>Retail Management (RMS)</h1>
+      <p class="subtitle">Retail management system with direct integration into several popular accounting systems.</p>
+
+      <div class="imgrow">
+        <img src="/assets/img/rms-01.jpg" alt="Retail Management (RMS) screenshot 1">
+        <img src="/assets/img/rms-02.jpg" alt="Retail Management (RMS) screenshot 2">
+      </div>
+
+      <div class="prose">
+        <p>After working on many sales-based extensions, we developed a commercial version that could serve as the base for new solutions. Retail Management was a fascinating project, especially coordinating inventory control between multiple stores. The challenges included real-time reporting, KPI tracking, and managing data integrations between stores and terminals.</p>
+        <p>High availability was a core feature, and it brought many challenges. Terminals needed to function stand-alone and then integrate their data back into the store server — and the store server had to do the same with the corporate data server.</p>
+        <p>Our system was hardware agnostic, which led to more challenges. It was built on a Microsoft tech stack (C++, MFC, and SQL), so supporting many different hardware platforms and accessories was essential. A hardware abstraction layer managed these complexities while keeping the system flexible and robust.</p>
+        <p>The crowning achievement was direct accounting-system integration. Through the Accounting System Interface (ASI) we downloaded inventory information each morning and uploaded sales data at the end of the day. The ASI acted as a bridge between the two systems. In the end we supported nearly a dozen systems from several major vendors.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">← back to projects</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

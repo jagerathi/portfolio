@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Kevin Knoll</title>
+  <meta name="description" content="About Kevin Knoll — leader, solutions architect, and developer.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/about.html">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="About — Kevin Knoll">
+  <meta property="og:description" content="About Kevin Knoll — leader, solutions architect, and developer.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/about.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/about</span>
+      <nav class="cmds">
+        <a href="/index.html" data-match="@@never">home</a>
+        <a href="/index.html#work" data-match="@@never">work</a>
+        <a href="/about.html" data-match="about">about</a>
+        <a href="/blog/index.html" data-match="blog">blog</a>
+      </nav>
+    </div>
+
+    <div class="body">
+      <a href="/index.html" class="back">home</a>
+
+      <div class="section-label">% <span class="cmd">cat about.md</span></div>
+      <h1>Who I am</h1>
+      <p class="subtitle">Leader, solutions architect, and developer.</p>
+
+      <img src="/assets/img/about.jpg" alt="Kevin Knoll" class="hero-img" style="width:140px;height:140px">
+
+      <div class="prose">
+        <p>I grew up with a passion for technology. I loved airplanes, space travel, and
+        computers. When I reached the point where I had to decide what to do with my life,
+        I quickly turned to technology. It started with a short stint at the Nokia Mobile
+        Phones production facility in Fort Worth, followed by a year of managed IT services,
+        and finally a software development role at Mik &amp; Associates in Irving, TX.</p>
+
+        <p>I spent the next 10 years at Mik &amp; Associates, and those years solidified my
+        love for software development. I worked on countless custom projects across a variety
+        of app spaces. I learned how to interact with customers, plan a project, convert that
+        plan into an estimate, and the estimate into a real product. During this time the
+        technology landscape changed: I moved from Access and Btrieve to SQL, and from C++ and
+        MFC to C# and .NET.</p>
+
+        <p>The transition to .NET exposed me to many new frameworks, thanks to the rise of open
+        source and the adaptation of popular Java frameworks. With these tools in hand I started
+        to see the widespread adoption of industry standards. This was the stage of my career
+        where I moved from developer to engineer, finally leveraging the technology knowledge
+        from my earlier jobs into the solutions I was building.</p>
+
+        <p>After 10 years, I moved to ABC Imaging in Washington, DC. There my focus narrowed to
+        a few core product ecosystems, which let me refine my craft. After two years I inherited
+        a custom ERP system that would become my focus for the next decade-plus. It was built on
+        .NET and SQL, but on an early framework and showing its age. Over a 10-year modernization
+        cycle we took it from a monolith to an SOA and eventually to a cloud-based SaaS.</p>
+
+        <p>Part of that modernization was the DevOps process. We moved from SourceSafe to
+        Subversion, then stood up a continuous build environment on TeamCity, then addressed
+        deployment and configuration with Octopus Deploy. With those systems in place, the
+        migration to AWS was expedited — and we completed it in under a year.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">see my work →</a>
+    </div>
+
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

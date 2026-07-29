@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise Resource Planning (ERP) — Kevin Knoll</title>
+  <meta name="description" content="Receivables, payables, inventory, and financial reporting.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/work/erp.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Enterprise Resource Planning (ERP) — Kevin Knoll">
+  <meta property="og:description" content="Receivables, payables, inventory, and financial reporting.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/work/erp.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/erp-01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/projects/erp</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work" class="active">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html#work" class="back">projects</a>
+      <div class="section-label">% <span class="cmd">cat projects/erp.md</span></div>
+      <h1>Enterprise Resource Planning (ERP)</h1>
+      <p class="subtitle">Receivables, payables, inventory, and financial reporting.</p>
+
+      <div class="imgrow">
+        <img src="/assets/img/erp-01.jpg" alt="Enterprise Resource Planning (ERP) screenshot 1">
+        <img src="/assets/img/erp-02.jpg" alt="Enterprise Resource Planning (ERP) screenshot 2">
+      </div>
+
+      <div class="prose">
+        <p>From day one, most of my projects involved extending or enhancing ERP software — from overlaying processes like specialized landed-cost calculations for shipping and customs charges, to replacing entire features like a custom sales-order entry process. This let me work with a variety of ERP systems and learn the good and the bad of how they work.</p>
+        <p>When the opportunity arose to take over development of a custom ERP system, I jumped at it. I was finally able to pull together all my prior knowledge and build a best-of-breed solution. The end result was tailored to a fairly specific industry, but it was a great experience that combined many ideas I'd developed over the years into a complete package.</p>
+        <p>For ERP software, reliability is key. Protecting data — both within the application and the hosting environment — is critical, and so is auditing: tracking changes to specific data points and identifying who changed what, and when. After countless financial audits, this is something we focused on heavily to ensure compliance and accountability. We rarely delete data, so managing an ever-growing database was also a challenge.</p>
+        <p>Eventually pushing our ERP solution to the cloud mitigated so many challenges. It let us focus on scalability and performance instead of only reliability. We improved our configuration and CI/CD capabilities, which improved reliability and our ability to release patches safely and quickly. We implemented an infrastructure-as-code process that lets us completely tear down and redeploy from scratch in under 12 hours — something that would have been unheard of in our data center.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">← back to projects</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

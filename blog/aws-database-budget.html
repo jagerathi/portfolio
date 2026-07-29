@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choosing an AWS database without blowing the budget — Kevin Knoll</title>
+  <meta name="description" content="Database hosting was our biggest cloud expense and our most critical component. Here's how we approached the trade-off.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/blog/aws-database-budget.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Choosing an AWS database without blowing the budget">
+  <meta property="og:description" content="Database hosting was our biggest cloud expense and our most critical component. Here's how we approached the trade-off.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/blog/aws-database-budget.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta property="article:published_time" content="2026-04-22">
+  <meta property="article:author" content="Kevin Knoll">
+  <meta property="article:tag" content="aws">
+  <meta property="article:tag" content="databases">
+  <meta property="article:tag" content="cost">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Choosing an AWS database without blowing the budget">
+  <meta name="twitter:description" content="Database hosting was our biggest cloud expense and our most critical component. Here's how we approached the trade-off.">
+  <meta name="twitter:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Choosing an AWS database without blowing the budget","description":"Database hosting was our biggest cloud expense and our most critical component. Here's how we approached the trade-off.","datePublished":"2026-04-22","author":{"@type":"Person","name":"Kevin Knoll","url":"http://portfolio3.knollitall.com/"},"keywords":"aws, databases, cost","image":"http://portfolio3.knollitall.com/assets/img/face_2.jpg","url":"http://portfolio3.knollitall.com/blog/aws-database-budget.html","mainEntityOfPage":"http://portfolio3.knollitall.com/blog/aws-database-budget.html"}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/blog/aws-database-budget</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html" class="active">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/blog/index.html" class="back">blog</a>
+      <div class="section-label">% <span class="cmd">cat aws-database-budget.md</span></div>
+      <h1>Choosing an AWS database without blowing the budget</h1>
+      <p class="post-meta">Apr 22, 2026</p>
+      <div class="tags"><span class="t">aws</span><span class="t">databases</span><span class="t">cost</span></div>
+      <article class="prose" style="margin-top:22px">
+<p>When we finally got the green light to move to the cloud, I assumed approval was the hard part.
+It wasn&#39;t. The hard part started right after: picking a provider, and then picking the right
+services <em>within</em> that provider. And the decision that mattered most — the one I lost the most
+sleep over — was the database.</p>
+<p>Database hosting was going to be the single largest line item on our monthly bill, and also the
+most critical piece of the entire system. That&#39;s an uncomfortable combination. You can&#39;t cheap out
+on the thing your business runs on, but you also can&#39;t let it quietly consume the whole budget you
+just fought to get approved. This post is about how I learned to hold both of those truths at once.</p>
+<div class="takeaways">
+  <p class="tw-label">key takeaways</p>
+  <ul>
+    <li>Treat the database as the anchor of the architecture, then design everything else around it.</li>
+    <li>Start from your real data set and your performance floor — not the vendor feature matrix.</li>
+    <li>Compare idle cost and under-load cost separately; the gap tells you whether the pricing model fits you.</li>
+    <li>Part of the value you're buying is offloaded operational burden, not just compute.</li>
+    <li>An explicit budget is a design input, not a number you reconcile after the first bill.</li>
+  </ul>
+</div>
+
+<h2>Why the database dominates everything else</h2>
+<p>In most architectures, the database is special for two reasons at once, and they pull in opposite
+directions.</p>
+<p>First, it&#39;s the most critical component. If it&#39;s slow, everything is slow. If it&#39;s down, you&#39;re
+down. If it loses data, no amount of clever application code saves you. That argues for spending
+generously and never compromising.</p>
+<p>Second, for a data-heavy system like ours, it&#39;s the most expensive component. Storage, throughput,
+high availability, backups — it all adds up, and it recurs every single month. That argues for
+spending carefully and questioning every dollar.</p>
+<p>The trap is treating those as a tug-of-war you resolve with a gut feeling. What worked for us was
+reframing the database not as one cost center among many, but as the <em>anchor</em> of the architecture.
+Once we accepted that it set the constraints everything else would live within, the decision got
+clearer. We weren&#39;t trying to minimize the database bill in isolation; we were trying to find the
+configuration that met our non-negotiables and then shaping the rest of the system to fit.</p>
+<h2>The mistake I almost made: starting from the feature matrix</h2>
+<p>My first instinct was the wrong one. I started where I think most people start: comparing the
+managed database options feature by feature. This one has that replication mode, that one has this
+failover story, this other one has a slightly different scaling model. Within a day I had a
+spreadsheet with thirty rows and no idea what actually mattered.</p>
+<p>The problem with the feature matrix is that it answers the question &quot;what <em>can</em> these do?&quot; when the
+question I needed answered was &quot;what does <em>my</em> workload actually require?&quot; Those are completely
+different. A feature is only valuable if it maps to a real constraint of yours, and the matrix has no
+opinion about which of your constraints are real.</p>
+<p>So we threw the matrix away — not literally, but as the starting point — and started from our own
+system instead.</p>
+<h2>The questions that actually did the work</h2>
+<p>We spent weeks comparing the major players before settling on a vendor, and then weeks more on the
+specific services within it. The questions that earned their keep were not about features. They were
+about us.</p>
+<p><strong>What is the real data set, today and in a few years?</strong> We rarely delete data, so growth wasn&#39;t a
+footnote — it was a primary design constraint. A choice that&#39;s comfortable at today&#39;s size and
+miserable at triple the size isn&#39;t a real choice; it&#39;s a deferred migration.</p>
+<p><strong>What is the performance floor we genuinely cannot go below?</strong> Not the dazzling peak we&#39;d love to
+hit — the floor beneath which the business actually suffers. Designing to the floor instead of the
+ceiling kept us honest about what we were really paying for.</p>
+<p><strong>What does it cost idle, and what does it cost under load?</strong> These are two different numbers, and the
+gap between them tells you whether a pricing model fits your usage pattern. A model that&#39;s cheap when
+idle but punishing under load means something very different for a steady workload than for a spiky
+one. Look at both; don&#39;t average them in your head.</p>
+<p><strong>How much operational burden are we offloading?</strong> A big part of the entire point of moving to the
+cloud was to stop needing a subject-matter expert for every layer of the stack. A managed option that
+costs more but removes a whole category of work we used to do by hand isn&#39;t just an expense — it&#39;s a
+trade we were specifically trying to make.</p>
+<h2>Budget as a design input, not a postmortem</h2>
+<p>The most important shift in how I think about this: the budget belongs at the <em>start</em> of the design,
+not at the end.</p>
+<p>It&#39;s tempting to design the ideal architecture and then find out what it costs. But the cloud will
+happily sell you nearly unlimited resources, which means cost is not a natural constraint the way a
+finite data center was. If you don&#39;t bring the constraint yourself, nothing else will, and you&#39;ll meet
+your real budget for the first time on an invoice. That&#39;s a bad place to discover it.</p>
+<p>So we set the number early and treated it as a first-class requirement, exactly like a performance or
+reliability requirement. &quot;It must stay within this monthly envelope&quot; sat right next to &quot;it must meet
+this performance floor&quot; and &quot;it must not lose data.&quot; When a candidate option failed the budget test,
+that was a real failure, considered up front — not a surprise we&#39;d have to explain later.</p>
+<h2>What I&#39;d tell someone starting now</h2>
+<p>Don&#39;t start from the feature matrix. Start from your data set and your performance floor. Turn those
+into a budget number you&#39;re willing to commit to. <em>Then</em> go see which managed option fits — and let
+that choice anchor the rest of the architecture, rather than bolting the database on at the end.</p>
+<p>And give the decision the time it deserves. Ours took weeks of genuine comparison, and the whole
+migration ran about ten months. Getting the database choice right early is a big part of why the rest
+of it went as smoothly as it did. The database is the one decision where &quot;measure twice, cut once&quot; is
+not a cliché — it&#39;s just good economics.</p>
+
+      </article>
+      <a href="/blog/index.html" class="btn" style="margin-top:18px">&larr; all posts</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>&copy; <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>
