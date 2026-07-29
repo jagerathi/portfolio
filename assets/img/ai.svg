@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img" aria-label="Applied artificial intelligence — neural network">
+  <defs>
+    <pattern id="aidots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#ffffff" opacity="0.035"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="480" fill="#0d1117"/>
+  <rect width="1200" height="480" fill="url(#aidots)"/>
+
+  <rect width="1200" height="44" fill="#161b22"/>
+  <circle cx="26" cy="22" r="6" fill="#ff5f56"/>
+  <circle cx="48" cy="22" r="6" fill="#ffbd2e"/>
+  <circle cx="70" cy="22" r="6" fill="#27c93f"/>
+  <text x="92" y="27" font-family="monospace" font-size="14" fill="#8b949e">kevin@knoll: ~/projects/ai</text>
+
+  <g stroke="#5dcaa5" stroke-width="1.5" opacity="0.28">
+    <line x1="440" y1="170" x2="640" y2="150"/>
+    <line x1="440" y1="170" x2="640" y2="250"/>
+    <line x1="440" y1="170" x2="640" y2="350"/>
+    <line x1="440" y1="170" x2="640" y2="440"/>
+    <line x1="440" y1="285" x2="640" y2="150"/>
+    <line x1="440" y1="285" x2="640" y2="250"/>
+    <line x1="440" y1="285" x2="640" y2="350"/>
+    <line x1="440" y1="285" x2="640" y2="440"/>
+    <line x1="440" y1="400" x2="640" y2="150"/>
+    <line x1="440" y1="400" x2="640" y2="250"/>
+    <line x1="440" y1="400" x2="640" y2="350"/>
+    <line x1="440" y1="400" x2="640" y2="440"/>
+    <line x1="640" y1="150" x2="840" y2="240"/>
+    <line x1="640" y1="150" x2="840" y2="360"/>
+    <line x1="640" y1="250" x2="840" y2="240"/>
+    <line x1="640" y1="250" x2="840" y2="360"/>
+    <line x1="640" y1="350" x2="840" y2="240"/>
+    <line x1="640" y1="350" x2="840" y2="360"/>
+    <line x1="640" y1="440" x2="840" y2="240"/>
+    <line x1="640" y1="440" x2="840" y2="360"/>
+  </g>
+
+  <g fill="#11161d" stroke="#5dcaa5" stroke-width="2.5">
+    <circle cx="440" cy="170" r="15"/>
+    <circle cx="440" cy="285" r="15"/>
+    <circle cx="440" cy="400" r="15"/>
+    <circle cx="640" cy="150" r="15"/>
+    <circle cx="640" cy="440" r="15"/>
+  </g>
+  <g fill="#5dcaa5" stroke="#5dcaa5" stroke-width="2.5">
+    <circle cx="640" cy="250" r="15"/>
+    <circle cx="640" cy="350" r="15"/>
+  </g>
+  <g fill="#378add" stroke="#378add" stroke-width="2.5">
+    <circle cx="840" cy="240" r="16"/>
+    <circle cx="840" cy="360" r="16"/>
+  </g>
+
+  <text x="640" y="462" font-family="monospace" font-size="16" fill="#8b949e" text-anchor="middle">applied ai // neural networks</text>
+</svg>

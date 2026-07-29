@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artificial Intelligence — Kevin Knoll</title>
+  <meta name="description" content="How a veteran systems architect is exploring and applying AI — practically, and from the ground up.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/work/ai.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Artificial Intelligence — Kevin Knoll">
+  <meta property="og:description" content="How a veteran systems architect is exploring and applying AI — practically, and from the ground up.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/work/ai.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/projects/ai</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work" class="active">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html#work" class="back">projects</a>
+      <div class="section-label">% <span class="cmd">cat projects/ai.md</span></div>
+      <h1>Artificial Intelligence</h1>
+      <p class="subtitle">An ongoing exploration — how I'm learning and applying AI, from an architect's perspective.</p>
+
+      <img src="/assets/img/ai.svg" alt="Applied artificial intelligence — neural network" style="width:100%;border-radius:8px;border:1px solid #1f2630;margin:10px 0 6px;display:block;">
+
+      <div class="prose">
+        <p>This one is honest about what it is: active exploration rather than a finished client project. After decades building data-heavy systems, I'm spending real time on where artificial intelligence genuinely fits — and I'm approaching it the way I approach any new technology, with equal parts curiosity and healthy skepticism. The interesting question to me isn't whether AI is impressive; it's where it earns a place in a system that has to be reliable, secure, and affordable.</p>
+        <p>I learn the way I always have: hands-on, plus a steady diet of courses, reading, and building small things to understand them. Right now that means getting comfortable with large language models, retrieval-augmented generation, embeddings and vector search, and the practical mechanics of wiring these tools into real applications — prompts, context windows, evaluation, and the unglamorous plumbing that decides whether any of it works in production.</p>
+        <p>What excites me most is the overlap with the domains I already know well. Data integration, ERP workflows, compliance and security tooling, DevOps automation — these are exactly the places where AI can remove drudgery: summarizing and reconciling messy data, drafting and explaining remediation, accelerating code and documentation, and making large systems easier for people to interrogate in plain language. My instinct is to treat AI as a capable component inside sound architecture, not as a replacement for it.</p>
+        <p>And the old disciplines don't go away — if anything they matter more. Reliability, data governance, cost control, and security are the same constraints I've spent a career respecting, and they apply directly to anything built on top of a model. That's the lens I bring to AI: not hype, but a practical question of how to fold a genuinely powerful tool into systems people can trust. This page will grow as that exploration turns into things worth showing.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">← back to projects</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

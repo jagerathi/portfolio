@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Warehouse Management (WMS) — Kevin Knoll</title>
+  <meta name="description" content="Shipping, receiving, and inventory control with direct integration into several popular accounting systems.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/work/wms.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Warehouse Management (WMS) — Kevin Knoll">
+  <meta property="og:description" content="Shipping, receiving, and inventory control with direct integration into several popular accounting systems.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/work/wms.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/wms-01.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/projects/wms</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work" class="active">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html#work" class="back">projects</a>
+      <div class="section-label">% <span class="cmd">cat projects/wms.md</span></div>
+      <h1>Warehouse Management (WMS)</h1>
+      <p class="subtitle">Shipping, receiving, and inventory control with direct integration into several popular accounting systems.</p>
+
+      <div class="imgrow">
+        <img src="/assets/img/wms-01.jpg" alt="Warehouse Management (WMS) screenshot 1">
+        <img src="/assets/img/wms-02.jpg" alt="Warehouse Management (WMS) screenshot 2">
+      </div>
+
+      <div class="prose">
+        <p>Inventory management was a natural progression from Retail Management. Unlike the retail system, it required a real-time link with the companion accounting system — we could no longer rely on a batched interface. A new interface let us swap out components for integration into external processes.</p>
+        <p>This system was a fun and challenging venture, incorporating handheld and wearable computers to optimize the process for users. Unlike the high-volume, highly redundant retail setup, warehouse management required a finer degree of data control: it was imperative to prevent multiple users from processing the same information.</p>
+        <p>It was also a goal to normalize the process across multiple backend accounting packages. That meant fundamental concepts — bin tracking, lots, serial numbers — had to be managed externally. While this was a huge advantage to the customer, it made the implementation more complex.</p>
+        <p>Customization was a major consideration. To allow certain processes or UI entities to be customized, a COM-style interface let a new DLL be dropped into the runtime folder; it would match interface signatures and execute custom code on the core system.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">← back to projects</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

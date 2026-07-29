@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber Security &amp; Compliance — Kevin Knoll</title>
+  <meta name="description" content="Endpoint compliance automation — STIG and CIS hardening and remediation for Linux systems.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/work/security.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Cyber Security &amp; Compliance — Kevin Knoll">
+  <meta property="og:description" content="Endpoint compliance automation — STIG and CIS hardening and remediation for Linux systems.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/work/security.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/projects/security</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work" class="active">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/index.html#work" class="back">projects</a>
+      <div class="section-label">% <span class="cmd">cat projects/security.md</span></div>
+      <h1>Cyber Security &amp; Compliance</h1>
+      <p class="subtitle">Endpoint compliance automation — STIG and CIS hardening and remediation for Linux systems.</p>
+
+      <img src="/assets/img/security.svg" alt="Cyber security and compliance" style="width:100%;border-radius:8px;border:1px solid #1f2630;margin:10px 0 6px;display:block;">
+
+      <div class="prose">
+        <p>As lead engineer on a Linux compliance agent, I built the client-side component responsible for bringing endpoints into line with security baselines and keeping them there. The agent was developed on .NET Core 8 and communicates with its host server over gRPC, which gave us an efficient, strongly-typed channel for streaming scan results and remediation status back to the control plane.</p>
+        <p>The core of the work was policy compliance: scanning systems against STIG (Security Technical Implementation Guides) and CIS benchmarks, reporting where they fell short, and remediating the drift. Working alongside Linux subject-matter experts, we translated those policies into bash scripts that could both assess a system's posture and safely correct it across Red Hat Enterprise Linux 8, RHEL 9, and Ubuntu 22.</p>
+        <p>Supporting multiple distributions is where the real care goes. A check that's correct on RHEL 9 may behave differently on Ubuntu 22, and remediation has to be safe to run repeatedly without breaking a working system. That meant treating idempotency and predictability as first-class requirements, and validating every control against each target platform rather than assuming parity.</p>
+        <p>Security also had to extend to the agent itself. I built the installer with Install Builder, paired with custom bash scripts that set up the application, provision and install its SSL certificates, and configure secure communication with the host server. The goal throughout was dependable, repeatable deployment into the kind of locked-down environments where compliance actually matters.</p>
+      </div>
+
+      <a href="/index.html#work" class="btn" style="margin-top:18px">← back to projects</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>© <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monolith to SOA to SaaS: what I'd do differently — Kevin Knoll</title>
+  <meta name="description" content="A decade modernizing a custom ERP, and the handful of lessons I'd hand to my past self.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/blog/monolith-to-saas.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Monolith to SOA to SaaS: what I'd do differently">
+  <meta property="og:description" content="A decade modernizing a custom ERP, and the handful of lessons I'd hand to my past self.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/blog/monolith-to-saas.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta property="article:published_time" content="2026-05-18">
+  <meta property="article:author" content="Kevin Knoll">
+  <meta property="article:tag" content="architecture">
+  <meta property="article:tag" content="erp">
+  <meta property="article:tag" content="modernization">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Monolith to SOA to SaaS: what I'd do differently">
+  <meta name="twitter:description" content="A decade modernizing a custom ERP, and the handful of lessons I'd hand to my past self.">
+  <meta name="twitter:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Monolith to SOA to SaaS: what I'd do differently","description":"A decade modernizing a custom ERP, and the handful of lessons I'd hand to my past self.","datePublished":"2026-05-18","author":{"@type":"Person","name":"Kevin Knoll","url":"http://portfolio3.knollitall.com/"},"keywords":"architecture, erp, modernization","image":"http://portfolio3.knollitall.com/assets/img/face_2.jpg","url":"http://portfolio3.knollitall.com/blog/monolith-to-saas.html","mainEntityOfPage":"http://portfolio3.knollitall.com/blog/monolith-to-saas.html"}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/blog/monolith-to-saas</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html" class="active">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/blog/index.html" class="back">blog</a>
+      <div class="section-label">% <span class="cmd">cat monolith-to-saas.md</span></div>
+      <h1>Monolith to SOA to SaaS: what I'd do differently</h1>
+      <p class="post-meta">May 18, 2026</p>
+      <div class="tags"><span class="t">architecture</span><span class="t">erp</span><span class="t">modernization</span></div>
+      <article class="prose" style="margin-top:22px">
+<p>I inherited a custom ERP system that was built on .NET and SQL — but on an early version of the
+framework, and it was showing its age. Over the next decade-plus it became my focus, and we took
+it through a full arc: monolith, to service-oriented architecture, to a cloud-based SaaS.</p>
+<p>I&#39;m genuinely proud of where it landed. The system carried real customers and real money the
+entire time, and it never had a flag day, never had the dreaded big-bang rewrite. But a ten-year
+journey leaves you with opinions. If I could hand a few notes to the version of me who was just
+starting out, here&#39;s what they&#39;d say.</p>
+<div class="takeaways">
+  <p class="tw-label">key takeaways</p>
+  <ul>
+    <li>Modernize the delivery pipeline before the architecture — everything downstream gets cheaper.</li>
+    <li>Service boundaries are a data-ownership problem first and a code problem second.</li>
+    <li>Reliability earns you the right to chase performance, not the other way around.</li>
+    <li>Avoid the big-bang rewrite. Strangle the old system one capability at a time.</li>
+    <li>Patience compounds: every step that leaves the system more maintainable than you found it pays off for years.</li>
+  </ul>
+</div>
+
+<h2>A quick word on where it started</h2>
+<p>When I took it over, the ERP was a classic monolith of its era. One large codebase, one
+database, a deployment process that involved a lot of care and a fair amount of holding your
+breath. It worked — it had worked for years — but every change was riskier than it should have
+been, and the cost of that risk compounded with every release.</p>
+<p>The temptation in that situation is enormous: <em>rip it out and start clean.</em> I&#39;m very glad we
+didn&#39;t. What follows is, in large part, the story of why incremental beat heroic.</p>
+<h2>1. Modernize the delivery pipeline first</h2>
+<p>The single best decision we made was to fix how we shipped before we tried to change what we
+shipped. We moved source control off SourceSafe and onto a modern system. We stood up a
+continuous build environment so that &quot;does it compile and pass tests&quot; stopped being a question
+a human answered. Then we tackled deployment and configuration, so that releasing stopped being
+a ritual and started being a button.</p>
+<p>This ordering matters more than it looks. Every architectural change you make afterward — every
+service you extract, every boundary you draw — has to be built, tested, and deployed. If those
+steps are slow, manual, and scary, then the cost of <em>each</em> architectural improvement is inflated
+by the broken pipeline underneath it. Fix the pipeline first and you lower the price of every
+subsequent change. It&#39;s leverage.</p>
+<p>If your build and deploy story is manual today, that&#39;s where I&#39;d start, full stop. Not because
+it&#39;s glamorous, but because it makes everything else affordable.</p>
+<h2>2. Service boundaries are a data problem, not a code problem</h2>
+<p>When people imagine breaking up a monolith, they picture untangling code — extracting classes,
+drawing module lines, splitting a repository. In my experience the code was never the hard part.
+The data was.</p>
+<p>A monolith gets to cheat. It shares tables freely. It wraps unrelated operations in a single
+transaction and leans on the database to keep everything consistent. Those are conveniences you
+don&#39;t even notice you&#39;re using until you try to pull two services apart and discover they&#39;ve been
+quietly holding hands inside the same schema the whole time.</p>
+<p>The real work of service-oriented architecture was deciding who <em>owns</em> what data, and then making
+every cross-boundary interaction an explicit contract instead of an implicit shared table. Once we
+got the data ownership right, the code boundaries mostly drew themselves. When we got impatient and
+drew a boundary around code without sorting out the data underneath, we always paid for it later.</p>
+<p>So my rule of thumb now: don&#39;t ask &quot;how do I split this code?&quot; Ask &quot;who should own this data, and
+what&#39;s the contract for everyone else who needs it?&quot; The architecture falls out of the answer.</p>
+<h2>3. Reliability buys you the right to chase performance</h2>
+<p>In an ERP, reliability isn&#39;t a feature — it&#39;s the entire value proposition. People are running
+their business on it. Data has to be protected, both inside the application and in the environment
+hosting it. Changes have to be auditable: who changed what, and when, surviving years of financial
+scrutiny. We rarely delete anything, which makes an ever-growing dataset its own ongoing challenge.</p>
+<p>For a long stretch, reliability was nearly all we thought about, and that was correct. But it also
+meant performance work kept getting deferred — there was always a more important &quot;don&#39;t lose
+anything&quot; concern in front of it.</p>
+<p>What changed the equation was the move to the cloud, with solid CI/CD and reproducible
+infrastructure underneath it. Once we could trust that we wouldn&#39;t lose data and that we could
+recover quickly, we finally had the standing to shift attention to making things fast. The lesson I
+took from that: you earn the right to optimize performance by first being trustworthy. Chase speed
+before you&#39;ve earned it and you&#39;re just adding risk to a system people already can&#39;t afford to lose.</p>
+<h2>4. Don&#39;t underestimate the database decision</h2>
+<p>When we sized the cloud migration, database hosting turned out to be both the largest recurring
+cost and the most critical single component. That combination makes it the natural anchor of the
+whole architecture — everything else ends up designed around the constraints it sets.</p>
+<p>I won&#39;t relitigate the whole decision here; it deserves its own write-up. The note to my past self
+is simply: take that decision seriously and early. Don&#39;t let it become a surprise on the first
+month&#39;s bill, and don&#39;t treat it as an implementation detail. It shapes far more than it appears to.</p>
+<h2>5. Avoid the big-bang rewrite</h2>
+<p>The thread running through all of this is incrementalism. We never stopped the world to rebuild.
+We strangled the old system one capability at a time — modernizing delivery, then carving out
+services around data ownership, then moving to the cloud — while it kept running the business.</p>
+<p>Big-bang rewrites are seductive because they promise to escape the mess all at once. In practice
+they trade a known, working, messy system for an unknown, unfinished, also-messy one, and they ask
+your customers to wait through the gap. A ten-year incremental march sounds glacial, but at no point
+were we betting the company on a flag day, and at every point the system was a little better than the
+month before.</p>
+<h2>The thing I got right</h2>
+<p>If I had to name the single thing I&#39;d repeat without hesitation, it&#39;s patience. Each step left the
+platform more maintainable than I found it. There was never a moment where we paused delivery to
+&quot;clean things up.&quot; Improvement was continuous, woven into normal work, and it compounded.</p>
+<p>Monolith to SOA to SaaS reads like three big leaps. Lived from the inside, it was a long series of
+small, deliberate, boring decisions — and that&#39;s exactly why it worked.</p>
+
+      </article>
+      <a href="/blog/index.html" class="btn" style="margin-top:18px">&larr; all posts</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>&copy; <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>

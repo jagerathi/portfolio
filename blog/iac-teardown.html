@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tearing down production in 12 hours: our IaC journey — Kevin Knoll</title>
+  <meta name="description" content="How infrastructure-as-code turned a fragile data center into something we could rebuild from scratch in an afternoon.">
+  <link rel="canonical" href="http://portfolio3.knollitall.com/blog/iac-teardown.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Kevin Knoll">
+  <meta property="og:title" content="Tearing down production in 12 hours: our IaC journey">
+  <meta property="og:description" content="How infrastructure-as-code turned a fragile data center into something we could rebuild from scratch in an afternoon.">
+  <meta property="og:url" content="http://portfolio3.knollitall.com/blog/iac-teardown.html">
+  <meta property="og:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <meta property="article:published_time" content="2026-06-10">
+  <meta property="article:author" content="Kevin Knoll">
+  <meta property="article:tag" content="aws">
+  <meta property="article:tag" content="infrastructure">
+  <meta property="article:tag" content="devops">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Tearing down production in 12 hours: our IaC journey">
+  <meta name="twitter:description" content="How infrastructure-as-code turned a fragile data center into something we could rebuild from scratch in an afternoon.">
+  <meta name="twitter:image" content="http://portfolio3.knollitall.com/assets/img/face_2.jpg">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Tearing down production in 12 hours: our IaC journey","description":"How infrastructure-as-code turned a fragile data center into something we could rebuild from scratch in an afternoon.","datePublished":"2026-06-10","author":{"@type":"Person","name":"Kevin Knoll","url":"http://portfolio3.knollitall.com/"},"keywords":"aws, infrastructure, devops","image":"http://portfolio3.knollitall.com/assets/img/face_2.jpg","url":"http://portfolio3.knollitall.com/blog/iac-teardown.html","mainEntityOfPage":"http://portfolio3.knollitall.com/blog/iac-teardown.html"}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="path">kevin@knoll: ~/blog/iac-teardown</span>
+      <nav class="cmds">
+        <a href="/index.html">home</a>
+        <a href="/index.html#work">work</a>
+        <a href="/about.html">about</a>
+        <a href="/blog/index.html" class="active">blog</a>
+      </nav>
+    </div>
+    <div class="body">
+      <a href="/blog/index.html" class="back">blog</a>
+      <div class="section-label">% <span class="cmd">cat iac-teardown.md</span></div>
+      <h1>Tearing down production in 12 hours: our IaC journey</h1>
+      <p class="post-meta">Jun 10, 2026</p>
+      <div class="tags"><span class="t">aws</span><span class="t">infrastructure</span><span class="t">devops</span></div>
+      <article class="prose" style="margin-top:22px">
+<p>For most of my career, &quot;production&quot; was a place. It lived in a rack, in a room, with a
+specific set of cables that someone had labeled years ago and nobody dared to touch. If it
+went down hard, recovery was measured in days — and in the number of people you could get on
+a call who still remembered how a particular box had been configured.</p>
+<p>When we moved our ERP platform to AWS, the goal I cared about most wasn&#39;t cost, and it wasn&#39;t
+even raw performance. It was this: <strong>I wanted to be able to delete production and bring it
+back.</strong> Not because I planned to — but because being able to was the clearest proof I could
+imagine that we actually understood our own system.</p>
+<div class="takeaways">
+  <p class="tw-label">key takeaways</p>
+  <ul>
+    <li>If you can't rebuild your environment from code, you don't fully understand it — you just remember it.</li>
+    <li>The teardown drill is valuable for what it forces you to make explicit, not for how often you'll do it.</li>
+    <li>Backups protect your data; infrastructure-as-code protects everything around the data.</li>
+    <li>Treat tribal knowledge as a bug. Every "only Dave knows that" is an outage waiting for Dave's vacation.</li>
+    <li>Start with the goal of reproducibility early — the discipline pays off long before you ever delete anything.</li>
+  </ul>
+</div>
+
+<h2>The problem with a production you can&#39;t reproduce</h2>
+<p>In the data center, our resilience story was built almost entirely on backups. We backed up
+the database religiously, we had a runbook, and we told ourselves we were covered. And for the
+<em>data</em>, we mostly were.</p>
+<p>But a backup only restores the things you remembered to back up. It restores rows in tables.
+It does not restore the shape of the world those rows live in: the network topology, the
+firewall rules, the service accounts, the scheduled jobs, the exact version of the runtime, the
+one registry key someone set during an incident in 2014 and never wrote down. That knowledge
+lived in people&#39;s heads and in the muscle memory of a few long-tenured engineers. It was real,
+it was load-bearing, and it was completely undocumented.</p>
+<p>The uncomfortable truth is that a system like that isn&#39;t <em>understood</em> — it&#39;s <em>remembered</em>. And
+memory is a single point of failure. The day someone retires, or simply forgets, a piece of
+your production environment quietly becomes unreproducible. You won&#39;t notice until the worst
+possible moment.</p>
+<h2>Why &quot;can you delete it?&quot; is the right question</h2>
+<p>When I started pushing for the cloud move, people expected me to lead with cost savings or
+elasticity. Instead I kept coming back to a deceptively simple test: <em>if this whole environment
+vanished tomorrow, how would we get it back — and how confident are we in that answer?</em></p>
+<p>It&#39;s a better question than &quot;do we have backups?&quot; because it refuses to let you hide. You can
+have perfect backups and still be unable to rebuild, because the backups assume the surrounding
+environment already exists. The teardown question collapses that assumption. It asks whether
+every decision that makes production <em>production</em> is written down somewhere a machine can read
+and act on.</p>
+<p>If the answer is yes, you&#39;ve achieved something profound: you&#39;ve converted institutional memory
+into version-controlled, reviewable, testable artifacts. The environment stops being a place and
+becomes a definition. And a definition can be copied, diffed, rolled back, and reasoned about —
+none of which you can do with a rack of servers.</p>
+<h2>What it actually took</h2>
+<p>I&#39;d love to say it was a clean process. It wasn&#39;t. Moving to infrastructure-as-code surfaced
+every hidden assumption we&#39;d been carrying for years, and each one had to be dragged into the
+light and made explicit.</p>
+<p>The first category was configuration sprawl. In the data center we had effectively one
+environment that mattered, plus a sickly staging box nobody trusted. In the cloud we wanted
+several environments that were genuinely alike, which meant our configuration system — built for
+a world of one — needed a serious overhaul. Anything that had been hardcoded &quot;because there&#39;s
+only ever one of these&quot; had to become a parameter.</p>
+<p>The second category was the quiet machine-specific dependencies. Code that assumed a particular
+drive letter existed. A process that worked only because it happened to run on the same server
+as the thing it talked to. Jobs that depended on a clock, a path, or a permission that no one
+had ever declared out loud. None of these were bugs in the data center, because the data center
+never changed. The moment we tried to describe the environment as code, every one of them became
+a thing we had to name.</p>
+<p>The third category was sequencing. It turns out a production environment has an implicit order
+of operations — this must exist before that can attach to it — and that order had also lived only
+in people&#39;s heads. Writing it as code meant writing down the dependency graph we&#39;d been
+improvising for a decade.</p>
+<p>None of this was glamorous. A lot of it was archaeology. But each assumption we made explicit was
+one less thing that could only be recovered by finding the right person.</p>
+<h2>The first real teardown</h2>
+<p>The milestone I remember most clearly was the first time we stood up a complete production-shaped
+environment from a clean slate and watched it come back healthy. We could deploy the entire thing
+in hours, from nothing, with no human stepping in to &quot;just fix that one thing.&quot;</p>
+<p>It&#39;s hard to overstate what that did to the team&#39;s relationship with risk. Before, a major change
+felt like surgery on a patient who couldn&#39;t be put under. After, it felt like editing a document
+we could always revert. The environment had become disposable in the best possible sense — not
+fragile, but reproducible.</p>
+<blockquote>
+<p>We rarely delete data — but being able to delete <em>everything else</em> and rebuild it on demand was
+the most reassuring thing we ever shipped.</p>
+</blockquote>
+<h2>The payoff was never really about teardown</h2>
+<p>Here&#39;s the part that surprised me. We don&#39;t actually tear down production very often — of course
+we don&#39;t. The value was almost entirely in what the discipline forced us to do along the way.</p>
+<p>Because the environment was now code, our CI/CD pipeline got dramatically better; deployment was
+just another reproducible step instead of a careful manual ritual. Patching got safer, because we
+could rehearse it on an identical environment first. Onboarding got faster, because &quot;how is
+production configured?&quot; had a real answer that didn&#39;t require booking time with one of three
+people. Audits got easier, because the configuration <em>was</em> the documentation, and it was always
+current by definition.</p>
+<p>In other words, the teardown capability was a forcing function. The real prize was that we could
+no longer get away with hand-wavy, person-shaped knowledge. The system made us honest.</p>
+<h2>What I&#39;d tell someone starting out</h2>
+<p>If you&#39;re early in a cloud migration, I&#39;d push for reproducibility as a north star sooner than
+feels comfortable. Not because you&#39;ll be tearing down production on a regular basis — you won&#39;t —
+but because the <em>ability</em> to do it is a proxy for a dozen other things you actually want:
+documented infrastructure, repeatable deployments, fast recovery, and freedom from tribal
+knowledge.</p>
+<p>Make the teardown drill a real, scheduled exercise, even when it&#39;s painful. Every time it fails,
+it&#39;s pointing at a piece of your system that still lives only in someone&#39;s memory. Fix that, and
+you haven&#39;t just gotten closer to a clean rebuild — you&#39;ve made the whole platform a little more
+knowable, and a lot less dependent on any one person being in the room.</p>
+<p>The goal was never to throw production away. The goal was to reach the point where we <em>could</em> — and
+to discover, in getting there, that we finally understood the thing we&#39;d been running all along.</p>
+
+      </article>
+      <a href="/blog/index.html" class="btn" style="margin-top:18px">&larr; all posts</a>
+    </div>
+    <footer>
+      <span class="prompt">%</span>
+      <span>&copy; <span id="yr"></span> Kevin Knoll</span>
+      <a href="/index.html">home</a>
+      <a href="/blog/index.html">blog</a>
+      <span class="spacer"></span>
+      <a href="mailto:jagerathi@gmail.com">email</a>
+    </footer>
+  </div>
+  <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+</body>
+</html>
